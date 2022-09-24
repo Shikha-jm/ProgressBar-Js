@@ -1,0 +1,855 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Customer Journey</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<style>
+		@font-face{
+			font-family: interSemiBold;
+			src:  url(fonts/Inter-SemiBold.ttf);
+		}
+		@font-face{
+			font-family: interExtraBold;
+			src:  url(fonts/Inter-ExtraBold.ttf);
+		}
+		@font-face{
+			font-family: interlight;
+			src:  url(fonts/Inter-Light.ttf);
+		}
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		body{
+			font-family: 'Inter', sans-serif;
+			background-color: #050505;
+			background-image: url(img/fullBodyBg.jpg);
+			background-size: cover;
+			padding: 50px;
+			color: #fff;
+			font-size: 14px;
+		}
+		.container {
+	max-width: 1220px;
+	margin: auto;
+}
+
+.container.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3%;
+}		
+.customerServe h1{
+	color: #fff;
+	margin: 15px 0 15px;
+	font-size: 3rem;
+	font-style: italic;
+	text-transform: uppercase;
+	font-family: interExtraBold;
+}
+.plusIcon{
+	color: #fff;
+	font-size: 20px;
+	display: inline-block;
+	margin-bottom: 30px;
+	letter-spacing: 4px;
+	font-family: interSemiBold;
+}
+.plusIcon a{
+	color: #fff;
+	text-decoration: none;
+}
+.plusIcon i{
+	font-style: normal;
+	font-size: 22px;
+	color: #fff;
+}
+
+.ui-widgets {
+    position: relative;
+    display: inline-block;
+    width: 350px;
+    height: 350px;
+    border-radius: 100%;
+    margin: 0 auto 0;
+    border: 1px solid #fff;
+    box-shadow: none;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.ui-widgets:before {
+	content: "";
+	width: 320px;
+	height: 320px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	background-color: transparent;
+	position: absolute;
+	border-radius: 100%;
+	border: 10px solid transparent;
+	    transform: rotate(45deg);
+}
+
+.ui-circle{
+	position: absolute;
+    width: 320px;
+    height: 320px;
+    border: 1px solid #fff;
+    border-radius: 100%;
+    background-color: #050505;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    z-index: 55;
+}
+
+.ui-widgets .ui-values {
+	top: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px 40px;
+    text-align: left;
+}
+
+.ui-widgets .ui-labels {
+	left: 0;
+	bottom: -16px;
+	text-shadow: 0 0 4px grey;
+	color:black;
+	position: absolute;
+	width: 100%;
+	font-size: 16px;
+}
+.ui-values h3 {
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-bottom: 10px;
+    font-family: interlight;
+}
+ul.listDtls {
+    list-style: none;
+    padding: 0;
+}
+ul.listDtls li {
+    position: relative;
+    margin-top: 6px;
+    color: #adaaaa;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: interlight;
+}
+ul.listDtls li input[type="checkbox"]{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	opacity: 0;
+	width: 60px;
+	height: 100%;
+	cursor: pointer;
+}
+ul.listDtls li  span{
+	display: flex;
+	padding-left: 25px;
+	position: relative;
+}
+ul.listDtls li  span:before{
+	content: "";
+	width: 12px;
+	height: 12px;
+	border: 1px solid #adaaaa;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0.8;
+}
+ul.listDtls li.checked input[type="checkbox"] + span{
+	color: #8dc84d;;
+}
+ul.listDtls li.checked input[type="checkbox"] + span:before{
+	opacity: 1;
+	background: url(img/singleFlag.png) no-repeat center center;
+	background-size: 15px auto;
+	width: 15px;
+	height: 15px;
+	border: 0;
+}
+ul.listDtls li.calenderBox i {
+    width: 20px;
+    margin-left: 4px;
+    overflow: hidden;
+    position: relative;
+    height: 25px;
+    display: inline-block;
+    background: url(img/calenderIcon.png) no-repeat center center;
+    background-size: 15px auto;
+    cursor: pointer;
+    margin-top: -6px;
+}
+ul.listDtls li.calenderBox.checked input[type="checkbox"] + span i{
+	 background: url(img/calendar_icongreen.png) no-repeat center center;
+    background-size: 15px auto;
+}
+ul.listDtls li.calenderBox i input {
+    position: absolute;
+    right: 0;
+    width: 100px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ui-widgets.cmp-25:before , .ui-widgets.cmp-50:before , .ui-widgets.cmp-75:before{
+	border-top-color: #fff;
+}
+.ui-widgets.cmp-50:before , .ui-widgets.cmp-75:before{
+	border-right-color: #fff;
+}
+.ui-widgets.cmp-75:before{
+	border-bottom-color: #fff;
+}
+.ui-widgets.complted:before {
+    top: 0;
+    height: 100%;
+    clip: unset;
+    background-color: #8dc84d;
+}
+h3.flagIcon {
+    position: relative;
+    color: #8dc84d;;
+}
+.ui-widgets.complted , .ui-widgets.complted .ui-circle{
+	border-color: #8dc84d;
+	box-shadow: 0 0 8px #8dc84d;
+}
+ul.listDtls li .tolltip{
+	display: inline-block;
+	position: relative;
+}
+ul.listDtls li .tolltip i {
+    position: absolute;
+        right: -16px;
+    top: -3px;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: #fff;
+    background-image: url(img/toolTipIcon.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 4px auto;
+    transition: all 500ms ease;
+    cursor: pointer;
+    transition: all 500ms ease;
+}
+.textHover{
+	width: 250px;
+    display: inline-block;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 5px;
+    bottom: -200px;
+    z-index: -55;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    opacity: 0;
+    z-index: 55;
+    position: absolute !important;
+    color: #333;
+    font-style: normal;
+    display: none;
+}
+.textHover:after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; 
+	  height: 0; 
+	  border-left: 12px solid transparent;
+	  border-right: 12px solid transparent;	  
+	  border-top: 12px solid #fff;
+}
+ul.listDtls li .tolltip i:hover .textHover{
+	opacity: 1;
+	 bottom: calc(100% + 12px);
+	 z-index: 5;
+	 display: block;
+	 
+}
+ul.listDtls li.checked input[type="checkbox"] + span.tolltip i{
+	background-color: #8dc84d;
+}
+.d-none {
+    display: none;
+}
+
+
+.circular {
+    height: 420px;
+    width: 420px;
+    position: relative;
+}
+
+.circular .inner,
+.circular .outer,
+.circular .circle {
+    position: absolute;
+    z-index: 6;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.circular .inner {
+    top: 50%;
+    left: 50%;
+    height: 400px;
+    width: 400px;
+    transform: translate(-50% , -50%);
+    background-color: #1e1e1e;
+    border-radius: 100%;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 20%);
+    border: 1px solid #fff;
+    padding: 70px 42px 0;
+    z-index: 55;
+}
+
+.circular .circle {
+    z-index: 1;
+    box-shadow: none;
+}
+
+.circular .numb {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    font-size: 18px;
+    font-weight: 500;
+    color: #4158d0;
+}
+
+.circular .bar {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    -webkit-border-radius: 100%;
+    border: 1px solid #fff;
+    clip: rect(0px, 420px, 420px, 210px);
+}
+
+.circle .bar .progress {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 100%;
+    clip: rect(0px, 210px, 420px, 0px);
+}
+
+.circle .bar .progress,
+.dot span {
+    background: #fff;
+}
+
+
+
+@keyframes left {
+    100% {
+        transform: rotate(60deg);
+    }
+}
+
+#check_1 .circle .left .progress {
+    z-index: 1;
+    animation: left 3s linear both;
+}
+
+#check_2  .circle .left .progress {
+    z-index: 1;
+    animation: left2 3s linear both;
+}
+
+#check_3  .circle .left .progress,
+#check_4 .circle .left .progress,
+#check_5 .circle .left .progress,
+#completeCheck .circle .left .progress{
+    z-index: 1;
+    animation: left3 3s linear both;
+}
+
+@keyframes left2 {
+    100% {
+        transform: rotate(120deg);
+    }
+}
+
+@keyframes left3 {
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.circle .right {
+    z-index: 3;
+    transform: rotate(180deg);
+}
+
+.circle .right .progress {
+    animation: right 3s linear both;
+    animation-delay: 3s;
+    display: none;
+}
+#check_4 .circle .right .progress,
+#check_5 .circle .right .progress ,
+#completeCheck .circle .right .progress {
+	display: block;
+}
+
+#check_5 .circle .right .progress {
+    animation: right2 3s linear both;
+    animation-delay: 3s;
+}
+
+#completeCheck .circle .right .progress {
+    animation: right3 3s linear both;
+    animation-delay: 3s;
+}
+
+
+@keyframes right {
+    100% {
+        transform: rotate(60deg);
+    }
+}
+
+@keyframes right2 {
+    100% {
+        transform: rotate(120deg);
+    }
+}
+
+@keyframes right3 {
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.circle .dot {
+    z-index: 2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 10px;
+    margin-top: -5px;
+    animation: dot 8s linear both;
+    transform-origin: 0% 50%;
+    display: none;
+}
+
+.circle .dot span {
+    position: absolute;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+@keyframes dot {
+    0% {
+        transform: rotate(-90deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
+        z-index: 4;
+    }
+
+    100% {
+        transform: rotate(270deg);
+        z-index: 4;
+    }
+}
+
+.finishPros  .ui-values h3{
+	position: relative;
+	color: #8dc84d;
+}
+.finishPros .ui-values h3:before{
+	content: "";
+    position: absolute;
+    bottom: 101%;
+    width: 50px;
+    height: 40px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    background: url(img/flagFinish.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.finishPros .circle .bar .progress {
+    background: #8dc84d;
+}
+.finishPros.circular .inner, .finishPros.circular .bar {
+    border: 1px solid #8dc84d;
+    box-shadow: inset 0 0 7px #8dc84d, 0 0 3px #8dc84e;
+}
+.finishPros.circular ul.listDtls li.checked input[type="checkbox"] + span:before {
+    opacity: 1;
+    background: url(img/flagFinish.png) no-repeat center center;
+    background-size: 15px auto;
+}
+
+@media (min-width: 581px){
+	.ui-values h3 {
+    font-size: 28px;
+}
+ul.listDtls li{
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+ul.listDtls li span:before{
+	width: 16px;
+	height: 16px;
+}
+
+.finishPros.circular ul.listDtls li.checked input[type="checkbox"] + span:before,
+ul.listDtls li.checked input[type="checkbox"] + span:before {
+    background-size: 22px auto;
+    width: 22px;
+	height: 22px;
+}
+ul.listDtls li span{
+	padding-left: 32px;
+}
+.circular .inner {
+    padding: 88px 50px 0;
+}
+}
+@media (max-width: 980px){
+	body{
+		font-size: 14px;
+		padding: 50px 20px;
+	}
+	h1 {
+	    font-size: 2rem;
+	    margin: 15px 0 10px;
+	    
+	}
+}
+
+@media (max-width: 580px){
+	body{
+		font-size: 12px;
+		padding: 30px 10px;
+	}
+	h1 {
+	    font-size: 1.8rem;
+	    margin: 15px 0 5px;
+	    
+	}
+	.plusIcon {
+    	font-size: 16px;
+	}
+	.container.d-flex {
+	    justify-content: center;
+	}
+	.circular {
+    height: 320px;
+    width: 320px;
+}
+.circular .inner {
+    top: 50%;
+    left: 50%;
+    height: 300px;
+    width: 300px;
+    }
+
+    .circular .bar{
+    	clip: rect(0px, 320px, 320px, 160px);
+    }
+    .circle .bar .progress{
+    	clip: rect(0px, 160px, 320px, 0px);
+    }
+    .ui-values h3 {
+    font-size: 17px;
+}
+.circular .inner{
+	padding: 71px 30px 0;;
+}
+.customerServe h1{
+	font-size: 1.5rem;
+}
+}
+.only-for-clone {
+    display: none;
+}
+.circular_col {
+    padding: 5px;
+}
+	</style>
+
+
+</head>
+<body>
+
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0">
+	<title>Customer Journey</title>
+</head>
+
+<body>
+	<section class="customerServe">
+<div class="container">
+	<h1>Customer Journey</h1>
+	<p class="plusIcon"><a href="#"><i>+</i> Add Customer</a></p>
+</div>
+	<div class="container d-flex row_circle">
+<div id="circular_1" class="circular_col">
+			<div class="circular">
+    <div class="inner">
+    	<div class="ui-values">
+				<h3>Customer 1 Name</h3>
+				<ul class="listDtls">
+					<li>
+						<input type="checkbox" name="list Details" id="inp"> 
+						<span>Dynamic Tagging</span>
+					</li>
+					<li>
+						<input type="checkbox" name="list Details"> 
+						<span>Webinar Attendance</span>
+					</li>
+
+					<li class="calenderBox">
+						<input type="checkbox" name="list Details"> 
+						<span>Joint Meeting <i><input type="date" id="JointMeeting" name="JointMeeting"></i></span>
+					</li>
+
+					<li>
+						<input type="checkbox" name="list Details"> 
+						<span>Lunch and Learn attendance</span>
+					</li>
+					<li>
+						<input type="checkbox" name="list Details"> 
+						<span>Rep ships demo</span>
+					</li>
+					<li>
+						<input type="checkbox" name="list Details"> 
+						<span class="tolltip">win notice
+							<i><div class="textHover">Generate Lorem Ipsum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.</div></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+    </div>
+    <div class="outer">
+    </div>
+    <div class="circle">
+        <div class="dot">
+            <span></span>
+        </div>
+        <div class="bar left">
+            <div class="progress">
+            </div>
+        </div>
+        <div class="bar right">
+            <div class="progress">
+            </div>
+        </div>
+    </div>
+</div>
+</div>	
+		
+</div>
+<!-- clone for new add customer -->
+<div class="only-for-clone">
+</div>	 
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+jQuery(document).ready(function(){
+ // clone for new add customer
+jQuery('.row_circle .circular_col').clone(true).appendTo(".only-for-clone");
+jQuery('.only-for-clone .circular_col').removeAttr("id");
+// end clone html
+
+var i = 0;
+var checked_count = 0;
+jQuery("body").on('click', 'input', function() {
+	var total_list = jQuery(this).parents('.circular').find( "li" ).length;
+// on checked 
+if(jQuery(this).is(':checked')){
+	jQuery(this).parent('li').addClass("checked").removeClass("unchecked");
+	let allChecked = 0;
+jQuery(this).parents(".listDtls").find("li").each(function( index,el) {
+  if(jQuery(el).hasClass( "checked" )){
+  let cls = jQuery(el).attr("class");
+    if(cls.includes("checked")){
+      allChecked = allChecked+1
+    }
+  }
+})
+	i = i+1;
+	i_count = allChecked.toString();
+	var addId = "check_" +  i_count;
+    jQuery(this).parents('.circular').attr('id',addId)
+        if (allChecked == total_list) {
+    jQuery(this).parents('.circular').attr('id',"completeCheck")
+
+i = 0;
+}
+
+if (allChecked === total_list) {
+	        jQuery(this).delay(7000).queue(function () {
+        jQuery(this).parents('.circular').addClass("finishPros");
+           jQuery( ".row_circle .circular_col" ).each(function(ind, e1) {
+        let keyId = jQuery(e1).attr('id')
+        let htmlCircular = document.getElementById(keyId)
+        localStorage.setItem(keyId, htmlCircular.outerHTML);
+
+
+
+  });
+         $.dequeue( this );
+
+        
+    });
+}
+}
+// on unchecked 
+if(jQuery(this).is(':checked') ===  false){
+
+	jQuery(this).parent('li').addClass("unchecked").removeClass("checked")
+
+	jQuery(this).parents('.circular').removeClass("finishPros");
+	var count_ch = jQuery.makeArray(jQuery(this).parents('.circular').find("input:checkbox:not(:checked)")).length
+			let allCheckedd = 0;
+jQuery(this).parents(".listDtls").find("li").each(function( index,el) {
+  if(jQuery(el).hasClass( "checked" )){
+  let cls = jQuery(el).attr("class");
+    if(cls.includes("checked")){
+      allCheckedd = allCheckedd+1
+    }
+  }
+})
+	checked_count = allCheckedd;
+count_remove = checked_count.toString();
+var new_addId = "check_" +  count_remove;
+jQuery(this).parents('.circular').attr('id',new_addId)
+if (checked_count == 0) {
+	jQuery(this).parents('.circular').attr('id',"all_unchecked")
+}
+if (total_list === count_ch) {
+	i = 0;
+}
+}
+   jQuery( ".row_circle .circular_col" ).each(function(ind, e1) {
+        let keyId = jQuery(e1).attr('id')
+        let htmlCircular = document.getElementById(keyId)
+        localStorage.setItem(keyId, htmlCircular.outerHTML);
+
+
+
+  });
+});
+
+
+// on click add more customer
+
+
+jQuery('.plusIcon a').click(function(){
+	jQuery('.only-for-clone .circular_col').clone(true).appendTo(".row_circle")
+    jQuery( ".row_circle .circular_col" ).each(function(ind, elemnt) {
+      var ind_count = ind + 1;
+      ind_count_str = ind_count.toString()
+      jQuery(elemnt).attr('id', 'circular_'+ind_count_str)
+      jQuery(elemnt).find("h3").text("Customer "+ind_count_str+" Name")
+
+    });
+
+
+ // set all customer in localstorage
+
+   jQuery( ".row_circle .circular_col" ).each(function(ind, e1) {
+        let keyId = jQuery(e1).attr('id')
+        let htmlCircular = document.getElementById(keyId)
+        localStorage.setItem(keyId, htmlCircular.outerHTML);
+
+
+
+  });
+   
+   jQuery(".row_circle").empty()
+   keys = Object.keys(localStorage)
+   for(var j=0; j<keys.length; j++){
+        var a =j+1;
+        a = 'circular_'+a.toString()
+   for(var i=0; i<keys.length; i++){
+        let key = keys[i]
+        if (key === a) {
+        let value = localStorage.getItem(keys[i])
+        jQuery('.row_circle').append(value)
+    }
+}
+}
+});
+
+
+
+ // set all customer in localstorage
+keys = Object.keys(localStorage)
+if (keys.length !== 0) {
+     jQuery(".row_circle").empty()
+   for(var j=0; j<keys.length; j++){
+        var a =j+1;
+        a = 'circular_'+a.toString()
+   for(var i=0; i<keys.length; i++){
+        let key = keys[i]
+        if (key === a) {
+        let value = localStorage.getItem(keys[i])
+        jQuery('.row_circle').append(value)
+    }
+}
+}
+}
+// set all customer in localstorage end.....
+});
+</script>
+</body>
+
+</html>
+
+
+</body>
+</html>
